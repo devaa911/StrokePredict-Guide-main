@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Stroke Prediction System</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-brain"></i>
+            <h1>Brain Stroke Prediction System</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#image-section" class="active"><i class="fas fa-image"></i> Image Analysis</a></li>
+                <li><a href="#data-section"><i class="fas fa-chart-bar"></i> Clinical Data</a></li>
+                <li><a href="#chat-section"><i class="fas fa-comments"></i> AI Assistant</a></li>
+                <li><a href="#about-section"><i class="fas fa-info-circle"></i> About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="image-section" class="section-container">
+            <div class="section-header">
+                <i class="fas fa-brain"></i>
+                <h2>CT/MRI Scan Analysis</h2>
+            </div>
+            <div class="upload-container">
+                <div class="upload-area" id="dropZone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & Drop your scan image or</p>
+                    <label for="imageUpload" class="upload-btn">Choose File</label>
+                    <input type="file" id="imageUpload" accept="image/*" hidden>
+                    <p class="file-name" id="fileName">No file selected</p>
+                </div>
+                <div class="preview-container">
+                    <img id="imagePreview" src="" alt="Preview">
+                </div>
+            </div>
+            <button id="predictImageBtn" class="predict-btn" disabled>
+                <i class="fas fa-brain"></i> Analyze Scan
+            </button>
+            <div class="results-container" id="imageResultsContainer">
+                <div class="result-card">
+                    <h3><i class="fas fa-chart-pie"></i> Prediction</h3>
+                    <div id="imageResult" class="result-value">-</div>
+                    <div class="confidence-bar-container">
+                        <div class="confidence-label">Confidence:</div>
+                        <div class="confidence-bar">
+                            <div id="imageConfidence" class="confidence-level" style="width: 0%;">0%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <h3><i class="fas fa-lightbulb"></i> Recommendations</h3>
+                    <div id="imageSuggestion" class="suggestion-text">-</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data-section" class="section-container">
+            <div class="section-header">
+                <i class="fas fa-clipboard-list"></i>
+                <h2>Clinical Data Analysis</h2>
+            </div>
+            <form id="clinicalForm" class="clinical-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="gender"><i class="fas fa-venus-mars"></i> Gender</label>
+                        <select id="gender" class="form-control">
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="age"><i class="fas fa-birthday-cake"></i> Age</label>
+                        <input type="number" id="age" class="form-control" required min="1" max="120">
+                    </div>
+                    <div class="form-group">
+                        <label for="hypertension"><i class="fas fa-heartbeat"></i> Hypertension</label>
+                        <select id="hypertension" class="form-control">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="heart_disease"><i class="fas fa-heart"></i> Heart Disease</label>
+                        <select id="heart_disease" class="form-control">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="ever_married"><i class="fas fa-ring"></i> Ever Married</label>
+                        <select id="ever_married" class="form-control">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="glucose"><i class="fas fa-tint"></i> Glucose Level (mg/dL)</label>
+                        <input type="number" id="glucose" class="form-control" step="0.1" required min="50" max="500">
+                    </div>
+                    <div class="form-group">
+                        <label for="bmi"><i class="fas fa-weight"></i> BMI</label>
+                        <input type="number" id="bmi" class="form-control" step="0.1" required min="10" max="50">
+                    </div>
+                    <div class="form-group">
+                        <label for="smoking"><i class="fas fa-smoking"></i> Smoking Status</label>
+                        <select id="smoking" class="form-control">
+                            <option value="0">Never Smoked</option>
+                            <option value="1">Currently Smokes</option>
+                            <option value="2">Formerly Smoked</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" id="predictTextBtn" class="predict-btn">
+                    <i class="fas fa-calculator"></i> Analyze Data
+                </button>
+            </form>
+            <div class="results-container" id="textResultsContainer">
+                <div class="result-card">
+                    <h3><i class="fas fa-chart-pie"></i> Prediction</h3>
+                    <div id="textResult" class="result-value">-</div>
+                    <div class="confidence-bar-container">
+                        <div class="confidence-label">Risk Level:</div>
+                        <div class="confidence-bar">
+                            <div id="textConfidence" class="confidence-level" style="width: 0%;">0%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <h3><i class="fas fa-lightbulb"></i> Health Recommendations</h3>
+                    <div id="textSuggestion" class="suggestion-text">-</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chat-section" class="section-container">
+            <div class="section-header">
+                <i class="fas fa-comments"></i>
+                <h2>AI Health Assistant</h2>
+            </div>
+            <div class="chat-interface">
+                <div class="chatbox" id="chatbox">
+                    <div class="bot-message">
+                        <div class="avatar"><i class="fas fa-robot"></i></div>
+                        <div class="message-content">
+                            <p>Hello! I'm your AI health assistant. How can I help you today?</p>
+                            <p class="tamil-text">வணக்கம்! நான் உங்கள் AI உடல்நல உதவியாளர். இன்று நான் உங்களுக்கு எவ்வாறு உதவ முடியும்?</p>
+                            <span class="timestamp">Just now</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="userInput" placeholder="Ask me about stroke prevention, symptoms, or treatments...">
+                    <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+                <div class="chat-options">
+                    <button class="quick-question" data-question="What are the early signs of stroke?">Early signs of stroke?</button>
+                    <button class="quick-question" data-question="How can I prevent stroke?">Prevention tips</button>
+                    <button class="quick-question" data-question="What should I do if someone is having a stroke?">Emergency response</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-section" class="section-container">
+            <div class="section-header">
+                <i class="fas fa-info-circle"></i>
+                <h2>About This System</h2>
+            </div>
+            <div class="about-content">
+                <p>This Brain Stroke Prediction System uses advanced machine learning algorithms to analyze both medical imaging and clinical data to assess stroke risk. The system provides personalized recommendations based on your specific health profile.</p>
+                <p>Please note that this tool is designed to assist healthcare professionals and should not replace proper medical consultation.</p>
+                <div class="disclaimer">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Medical Disclaimer</h3>
+                    <p>This application is for informational purposes only. Always consult with qualified healthcare providers for medical advice, diagnosis, or treatment.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Brain Stroke Prediction System | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+    </footer>
+
+    <script src="/static/js/prediction.js"></script>
+    <script src="/static/js/chatbot.js"></script>
+</body>
+</html>
